@@ -19,11 +19,14 @@ import InterviewController from './Controllers/InterviewController.js'
 import InterviewCatController from './Controllers/InterviewCatController.js'
 import ServicesController from './Controllers/ServicesController.js'
 import ServicesCatController from './Controllers/ServicesCatController.js'
-
+ 
 import cors from "cors"
 mongoDbConnection()
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: "*",
+}));
+
 app.use(express.json())
 
 app.use("/api/user", userControllers)

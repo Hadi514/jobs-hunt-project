@@ -52,7 +52,7 @@ router.get("/getCategoryById/:id", errorHandling(async (req, res) => {
     }
     res.json(Getcategory);
 }));
- 
+
 router.put("/editcategory/:id", upload.single("image"), errorHandling(async (req, res) => {
     const { category } = req.body;
     const newCat = {};

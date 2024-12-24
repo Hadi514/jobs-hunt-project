@@ -9,12 +9,10 @@ const router = express.Router();
 router.post("/uploadResume", upload.single("image"), errorHandling(async (req, res) => {
     const { userId, name, email, number, totalWorkExp, resumeHeadline, description, employmentDetails, educationDetails } = req.body;
 
-    // let skillsArray = []
     let employmentDetailsArray = []
-    let educationDetailsArray = [] 
+    let educationDetailsArray = []
 
     try {
-        // if (skills) skillsArray = JSON.parse(skills)
         if (employmentDetails) employmentDetailsArray = JSON.parse(employmentDetails)
         if (educationDetails) educationDetailsArray = JSON.parse(educationDetails)
     } catch (error) {
@@ -113,6 +111,7 @@ router.put("/editResume/:id", upload.single("image"), errorHandling(async (req, 
     res.json(updatedResume);
 }));
 
+
 router.delete("/delResumeById/:id", errorHandling(async (req, res) => {
     const resumeById = await Resume.findByIdAndDelete(req.params.id)
     if (!resumeById) return res.status(400).json({ message: "Not found any resume" })
@@ -122,6 +121,6 @@ router.get("/resumeCount", errorHandling(async (req, res) => {
     const resumeCount = await Resume.countDocuments()
     res.json(resumeCount)
 }))
- 
+
 
 export default router;

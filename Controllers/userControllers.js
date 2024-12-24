@@ -6,7 +6,7 @@ import upload from "../Middlewares/ImageFilter.js"
 import cloudinary from "../Cloudinary.js"
 const router = express.Router()
 const adminUser = async () => {
-    const [adminName, adminEmail, adminPassword, adminNumber] = ["Admin", "mailto:jobportaladmin@gmail.com", "1234", "admin Number"]
+    const [adminName, adminEmail, adminPassword, adminNumber] = ["Admin", "jobportaladmin@gmail.com", "1234", "admin Number"]
     const checkAdmin = await User.findOne({ email: adminEmail })
     if (checkAdmin) return null;
     const hashAdminPassword = await bcrypt.hash(adminPassword, 10)
