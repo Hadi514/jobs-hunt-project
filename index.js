@@ -19,7 +19,10 @@ import InterviewController from './Controllers/InterviewController.js'
 import InterviewCatController from './Controllers/InterviewCatController.js'
 import ServicesController from './Controllers/ServicesController.js'
 import ServicesCatController from './Controllers/ServicesCatController.js'
- 
+import jobConControllers from "./Controllers/JobCountryController.js";
+import jobCityControllers from "./Controllers/JobCityController.js";
+import pdfCvController from "./Controllers/CvPdfController.js";
+
 import cors from "cors"
 mongoDbConnection()
 const app = express()
@@ -28,6 +31,7 @@ app.use(cors({
 }));
 
 app.use(express.json())
+
 
 app.use("/api/user", userControllers)
 app.use("/api/jobPost", jobController)
@@ -44,7 +48,11 @@ app.use("/api/advice", interviewControllers)
 app.use("/api/jobSeaker", jobSeakerControllers)
 app.use("/api/jobCat", jobCatControllers)
 app.use("/api/jobInd", jobIndControllers)
+app.use("/api/jobCon", jobConControllers)
+app.use("/api/jobCity", jobCityControllers)
 app.use("/api/interview", InterviewController)
+app.use("/api/pdfCv", pdfCvController)
+
 app.use("/api/interviewCat", InterviewCatController)
 app.use("/api/service", ServicesController)
 app.use("/api/serviceCat", ServicesCatController)

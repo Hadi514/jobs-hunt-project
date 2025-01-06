@@ -4,6 +4,7 @@ const router = express.Router()
 import errorHandling from "../Middlewares/ErrorHandling.js";
 import cloudinaryV2 from "../Cloudinary.js";
 import upload from "../Middlewares/ImageFilter.js"
+import City from "../Modules/JobCity.js"
 
 router.post("/addJob", upload.fields([
     { name: "jobImage", maxCount: 1 },
@@ -59,18 +60,25 @@ router.post("/addJob", upload.fields([
 
 
 router.get("/getJobs", errorHandling(async (req, res) => {
-    const allJobs = await JobPost.find().populate("userId", "email name role").populate("categoryId", "category image").populate("industryId", "industry image")
+    const allJobs = await JobPost.find().populate("country", "country image").populate("city", "city").populate("userId", "email name role").populate("categoryId", "category image").populate("industryId", "industry image")
     res.json(allJobs)
 }))
 
 router.get("/getJobById/:id", errorHandling(async (req, res) => {
-    const getJobById = await JobPost.findById(req.params.id).populate("categoryId", "category").populate("industryId", "industry image")
+    const getJobById = await JobPost.findById(req.params.id).populate("country", "country image").populate("city", "city").populate("categoryId", "category").populate("industryId", "industry image")
     if (!getJobById) return res.status(400).json({ message: "Job not found" })
     res.json(getJobById)
 }))
 
+router.get("/changeCity", errorHandling(async (req, res) => {
+    const allCities = await City.find()
+    const allJobs = await JobPost.find()
+    console.log(allJobs);
+
+}))
+
 router.get("/getJobByTitle/:title", errorHandling(async (req, res) => {
-    const getJobByTitle = await JobPost.findOne({ title: req.params.title }).populate("categoryId", "category").populate("industryId", "industry")
+    const getJobByTitle = await JobPost.findOne({ title: req.params.title }).populate("country", "country image").populate("city", "city").populate("categoryId", "category").populate("industryId", "industry")
     if (!getJobByTitle) return res.status(400).json({ message: "Job not found" })
     res.json(getJobByTitle)
 }))
